@@ -29,7 +29,7 @@ def relu_grad(x):
     
 
 def softmax(x):
-    x = x - np.max(x, axis=-1, keepdims=True)   # オーバーフロー対策
+    x = x - np.max(x, axis=-1, keepdims=True)   # 防止溢出对策 在进行softmax的指数函数的运算时，加上（或者减去）某个常数并不会改变运算的结果
     return np.exp(x) / np.sum(np.exp(x), axis=-1, keepdims=True)
 
 
@@ -37,7 +37,7 @@ def sum_squared_error(y, t):
     return 0.5 * np.sum((y-t)**2)
 
 
-def cross_entropy_error(y, t):
+def cross_entropy_error(y, t): #交叉熵误差
     if y.ndim == 1:
         t = t.reshape(1, t.size)
         y = y.reshape(1, y.size)
