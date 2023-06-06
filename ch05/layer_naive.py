@@ -34,3 +34,11 @@ class AddLayer:
         dy = dout * 1
 
         return dx, dy
+
+
+import  numpy as np
+a = np.array([[1,2]])
+a1 = np.array([1,2])
+b=np.array([[1,2],[2,2]])
+print(np.dot(a,b))
+print(np.dot(a1,b))

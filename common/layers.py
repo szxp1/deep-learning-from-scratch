@@ -31,7 +31,7 @@ class Sigmoid:
         self.out = out
         return out
 
-    def backward(self, dout):
+    def backward(self, dout):#dout*y(1-y)
         dx = dout * (1.0 - self.out) * self.out
 
         return dx
@@ -61,7 +61,7 @@ class Affine:
     def backward(self, dout):
         dx = np.dot(dout, self.W.T)
         self.dW = np.dot(self.x.T, dout)
-        self.db = np.sum(dout, axis=0)
+        self.db = np.sum(dout, axis=0) #axis=0保证偏置b的导数的个数和输出神经元的个数一致
         
         dx = dx.reshape(*self.original_x_shape)  # 入力データの形状に戻す（テンソル対応）
         return dx
