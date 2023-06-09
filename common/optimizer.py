@@ -3,7 +3,7 @@ import numpy as np
 
 class SGD:
 
-    """確率的勾配降下法（Stochastic Gradient Descent）"""
+    """随机梯度下降法（stochastic gradient descent）"""
 
     def __init__(self, lr=0.01):
         self.lr = lr
@@ -15,7 +15,7 @@ class SGD:
 
 class Momentum:
 
-    """Momentum SGD"""
+    """动量随机梯度下降Momentum SGD"""
 
     def __init__(self, lr=0.01, momentum=0.9):
         self.lr = lr

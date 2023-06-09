@@ -1,12 +1,15 @@
 # coding: utf-8
 import sys, os
-sys.path.append(os.pardir)  # 親ディレクトリのファイルをインポートするための設定
+sys.path.append(os.pardir)
 import numpy as np
 import matplotlib.pyplot as plt
 from dataset.mnist import load_mnist
 from two_layer_net import TwoLayerNet
 
-# データの読み込み
+"""
+Epoch 表示将训练数据集中的所有样本训练一次，
+而 Mini-batch 是指将训练数据集分成小批量进行处理。在训练过程中，通常会进行多个 Epoch 的迭代，每个 Epoch 
+中的样本会被分成多个 Mini-batches 进行训练。这样的训练方式可以有效地利用计算资源，提高训练速度，并且有助于梯度估计的准确性。"""
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
 
 network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
@@ -28,11 +31,11 @@ for i in range(iters_num):
     x_batch = x_train[batch_mask]
     t_batch = t_train[batch_mask]
     
-    # 勾配の計算
+    # 计算梯度
     #grad = network.numerical_gradient(x_batch, t_batch)
     grad = network.gradient(x_batch, t_batch)
     
-    # パラメータの更新
+    # 参数更新
     for key in ('W1', 'b1', 'W2', 'b2'):
         network.params[key] -= learning_rate * grad[key]
     
