@@ -65,6 +65,10 @@ class MultiLayerNet:
                 scale = np.sqrt(1.0 / all_size_list[idx - 1])  # sigmoidを使う場合に推奨される初期値
 
             self.params['W' + str(idx)] = scale * np.random.randn(all_size_list[idx-1], all_size_list[idx])
+            """
+            为什么不能将权重初始值设为0呢？严格地说，为什么不能将权重初始
+            值设成一样的值呢？这是因为在误差反向传播法中，所有的权重值都会进行
+            相同的更新。"""
             self.params['b' + str(idx)] = np.zeros(all_size_list[idx])
 
     def predict(self, x):
@@ -90,9 +94,13 @@ class MultiLayerNet:
         weight_decay = 0
         for idx in range(1, self.hidden_layer_num + 2):
             W = self.params['W' + str(idx)]
-            weight_decay += 0.5 * self.weight_decay_lambda * np.sum(W ** 2)
+            weight_decay += 0.5 * self.weight_decay_lambda * np.sum(W ** 2) #计算权重衰减项
+            """weight_decay:权重衰减是一种正则化技术，旨在通过约束模型的权重参数来减小模型的复杂度，并防止过拟合。
+            它通过在损失函数中引入一个额外的项，惩罚权重参数的大小，使得较大的权重更不容易被选择。
+            """
 
-        return self.last_layer.forward(y, t) + weight_decay
+
+        return self.last_layer.forward(y, t) + weight_decay #通过正向传播，最后一层会计算一个loss
 
     def accuracy(self, x, t):
         y = self.predict(x)

@@ -13,9 +13,9 @@ class SGD:
             params[key] -= self.lr * grads[key] 
 
 
-class Momentum:
+class Momentum:#速度变量v相当于一个积累的梯度，它会根据当前梯度和上一次的速度进行更新
 
-    """动量随机梯度下降Momentum SGD"""
+    # """动量随机梯度下降Momentum SGD""" 通过引入速度变量，Momentum算法可以在优化问题中通常更快地收敛，特别是对于带有平坦区域或局部最小值的函数。它可以帮助算法跳出局部最小值
 
     def __init__(self, lr=0.01, momentum=0.9):
         self.lr = lr
